@@ -1,0 +1,112 @@
+#pragma GCC optimize("Ofast")
+#pragma GCC target("sse,sse2,sse3,ssse3,sse4,popcnt,abm,mmx,avx,avx2,fma")
+#pragma GCC optimize("unroll-loops")
+
+#include<bits/stdc++.h>
+#include<ext/pb_ds/assoc_container.hpp>
+#include<ext/pb_ds/tree_policy.hpp>
+using namespace __gnu_pbds;
+using namespace std;
+
+#define ll long long
+#define eb emplace_back
+#define nl '\n'
+#define deb(x) cerr << #x" = " << x << nl
+#define in() ( { int a ; scanf("%d", &a); a; } )
+
+const int N = 4e6 + 9;
+const int mod = 1e9 + 7;
+
+template <class T>
+struct BIT
+{
+    ///1-indexed
+	int sz;
+	vector<T> t;
+
+	void init(int n) ///max size of array
+	{
+		sz = n;
+		t.assign(sz,0);
+	}
+
+	T query(int idx)
+	{
+		T ans = 0;
+		for(; idx >= 1; idx -= (idx & -idx)) ans += t[idx];
+		return ans;
+	}
+
+	void upd(int idx, T val)
+	{
+		if(idx <= 0) return;
+		for(; idx <sz; idx += (idx & -idx)) t[idx] += val;
+	}
+
+	void upd(int l, int r, T val)
+	{
+	    upd(l,val);
+	    upd(r+1,-val);
+	}
+
+	T query(int l, int r) { return query(r) - query(l - 1); }
+};
+int X[N], Y[N], ty[N], ID[N];
+ll ans[N];
+BIT<ll> bt;
+void query(int l, int r)
+{
+    if(l > r) return;
+    if(l == r) return;
+    int mid = (l + r) >> 1;
+    vector<pair<int, int>> v;
+    vector<array<int, 3>> Q;
+    for(int i = l; i <= mid; i++) if(ty[i] == 1) v.eb(X[i], Y[i]);
+    sort(v.begin(), v.end());
+    for(int i = mid + 1; i <= r; i++) if(ty[i] == 2){
+        Q.push_back(array<int, 3> ({X[i], Y[i], ID[i]}));
+    }
+    sort(Q.begin(), Q.end());
+    int id = 0;
+    for(int i = 0; i < Q.size(); i++){
+        while(id < v.size() && v[id].first <= Q[i][0]) bt.upd(v[id].second, v[id].second), id++;
+        ans[Q[i][2]] += bt.query(Q[i][1]);
+    }
+    for(int i = 0; i < id; i++) bt.upd(v[i].second, -v[i].second);
+    query(l, mid);
+    query(mid + 1, r);
+}
+int32_t main()
+{
+    ios_base::sync_with_stdio(0); cin.tie(0);
+    int tc; cin >> tc;
+    while(tc--){
+        int n, q; cin >> n >> q;
+        vector<array<int, 3>> v;
+        vector<array<int, 4>> Q;
+        for(int i = 1; i <= n; i++){
+            int p, q, r; cin >> p >> q >> r;
+            v.push_back(array<int, 3>({p, q, r}));
+        }
+        for(int i = 1; i <= q; i++){
+            int x, y, z; cin >> x >> y >> z;
+            Q.push_back(array<int, 4>({x, y, z, i}));
+        }
+        sort(v.begin(), v.end());
+        reverse(v.begin(), v.end());
+        sort(Q.begin(), Q.end());
+        reverse(Q.begin(), Q.end());
+        int id = 0;
+        int T = 0;
+        for(int i = 0; i < q; i++){
+            while(id < n && v[id][0] >= Q[i][0]) ty[++T] = 1, X[T] = v[id][1], Y[T] = v[id][2], id++;
+            ty[++T] = 2;
+            ID[T] = Q[i][3], X[T] = Q[i][1], Y[T] = Q[i][2];
+        }
+        bt.init(N / 2);
+        query(1, T);
+        for(int i = 1; i <= q; i++) cout << ans[i] << nl;
+        for(int i = 1; i < N; i++) ans[i] = 0;
+    }
+    return 0;
+}
