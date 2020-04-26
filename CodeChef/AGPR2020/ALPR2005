@@ -1,0 +1,59 @@
+#include <bits/stdc++.h>
+using namespace std ;
+#define int long long 
+const int  inf =  1e16 ;
+const int maxn = 3000001;
+const int M = 998244353;
+int dp[2][maxn];
+int32_t main(){
+     ios_base::sync_with_stdio(false);
+     cin.tie(NULL); cout.tie(NULL);
+     //prepare_factorials();
+     int te  , s ; 
+     //cout << clz(1ll);
+   
+     int n , k ; 
+     cin >> n >> k ;
+     int a[n] ;
+     
+     for( int i = 0 ; i < n ; i++)
+       cin >> a[i];
+      for( int i = 0 ; i < k ; i++){
+        for( int j = i ; j <n ; j+=k){
+          dp[a[j]][i]++;
+        }
+      }
+     int x = 0 ; 
+     int chk[k]={0};
+     for ( int i = 0 ; i < k ; i++){
+       if(dp[0][i]<dp[1][i]){
+          chk[i] = 1 ;
+          x^=1;
+       }
+       else
+       {
+
+         chk[i] = 0 ;
+       }
+     }
+     int mi = inf ;
+     int j;  
+     if(x==0){
+        for( int i = 0 ; i < k ; i++ ){
+            if(dp[chk[i]][i]<mi){
+              mi = dp[chk[i]][i];
+              j = i ;
+            }
+          }
+          chk[j]^=1;
+     }
+     
+     int ans= 0;
+     for(int i = 0 ; i < k ; i++){
+          ans+=dp[chk[i]^1][i]; 
+     }
+     cout << ans ;
+
+     
+     
+}
