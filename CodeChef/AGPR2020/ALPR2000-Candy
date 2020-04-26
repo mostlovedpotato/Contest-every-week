@@ -1,0 +1,31 @@
+So here in this problem it is just that we have to handle two cases either it is no. of students are odd or even.
+
+#include <iostream>
+#include<algorithm>
+#include<vector>
+#include<set>
+#include<cstdio>
+
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);// your code goes here
+	cout.tie(NULL);
+	int t;
+	cin>>t;
+	while(t--)
+	{
+	    int n,k;
+	    cin>>n>>k;
+	    if(n&1)
+	    {
+	        cout<<(n+1)/2 + (n/2)*(k+1) + 2*k << endl;
+	    }
+	    else
+	    {
+	        cout<< (n*(k+2))/2 << endl;
+	    }
+	}
+	return 0;
+}
