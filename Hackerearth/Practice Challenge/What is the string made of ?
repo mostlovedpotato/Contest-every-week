@@ -1,0 +1,20 @@
+Here, we have to output the sum of number of dashes corresponding to each given digit.
+we are given with the no. of dashes and then input having larger no . is not great idea instead we just take input int the form of 
+the string and then we will covert that into number. Here, instead of using map or something else because the association is directly with
+the index and so we ordered them according to their indexes otherwise we would have used map to store the corresponding result.
+
+#include<iostream>
+using namespace std;
+#define fast_IO ios_base::sync_with_stdio(0), cin.tie(NULL), cout.tie(NULL)
+ 
+int main(){
+	string str;
+	cin >> str;
+	int sum = 0;
+	int length = str.length();
+	int arr[10] = {6, 2, 5, 5, 4, 5, 6, 3, 7, 6};
+	for(int i = 0; i < length ; i++){
+		sum += arr[str[i] -'0'];
+	}
+	cout << sum;
+}
