@@ -1,0 +1,31 @@
+Here , we have to apply the recursive function to go for the question so we go with memoization .
+
+#include <bits/stdc++.h>
+
+using namespace std;
+
+unordered_map<long long int,long long int> d;
+
+long long int solve(long long int n)
+{
+    if(n==0)
+	
+        return 0;
+    
+	if(d[n]!=0)
+
+    	return d[n];
+    
+	d[n]=max(n, solve(n/2) + solve(n/3) + solve(n/4));
+
+    return d[n];
+}
+int main()
+{   
+    long long int n;
+    while(cin>>n)
+	{
+        cout<<solve(n)<<endl;
+    }
+    return 0;
+}
