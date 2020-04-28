@@ -1,0 +1,40 @@
+This problem is quite interesting lol though easy but hardcoding is somewhat hard if you don't know stl.
+
+#include <bits/stdc++.h>
+#include <string>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main()
+{
+	int N;
+	scanf("%d",&N);
+	while(N--){
+		int T;
+		scanf("%d",&T);            
+		vector <int> num;
+		for ( int i = 0; i < 26; i ++){
+			int temp;
+			scanf("%d",&temp);
+			num.push_back(temp);                // pushing the values into the vector that is corresponding weights.
+		}
+		string str;
+		cin >> str;
+		vector < pair < int,string > > vec;        // declare pair in the vector to store corresponding weights and the string at the same time
+		for( int i = 0; i < str.length(); i++){
+			string str1;
+			str1.assign(str,i,1);                        // taking one letter at a time for the examination and then mapping into the vector pair
+			int ASCII = str1[0];
+			vec.push_back(pair<int,string> (num[ASCII - 97], str1));
+		}
+		sort( vec.begin(), vec.end() );           // sorting the vector values. 
+
+		int sum = 0;
+		for( int i = 0; i < ((str.length())-T); i++){            //printing the sum upto the len - T terms as the last T terms are weighing more.
+			sum = sum + vec[i].first;
+		}
+		printf("%d\n",sum);
+	}
+	return 0;
+}
