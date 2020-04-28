@@ -1,0 +1,91 @@
+Here, in this problem we have to check if the words rhyme and the rule for determining whether they are rhyming or not is simple just you 
+have check whether last three digits are same .
+
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+
+  int t,var=0,n;
+  cin >> t;
+  while( t-- ){
+        var++;
+   cin>>n;
+  map< string , set< string >  > V;
+  map< string , set< string >  >::iterator it;
+    string inp,tmp;
+    for(int i = 0 ; i < n ; ++i ){
+    cin>>inp;
+      tmp=inp.substr(inp.size()-3,3);
+        V[tmp].insert(inp);
+      }
+      cout << "Case : "<<var << endl;
+      for(it=V.begin();it!=V.end();++it)
+      {
+       for(set< string >::iterator i = V[it->first].begin() ; i !=  V[it->first].end() ; ++i )
+       {
+        i++;
+        if(i==V[it->first].end())
+        {
+        --i;
+        cout << *i << endl;
+        }
+        else {
+        --i;
+        cout << *i <<" ";
+        }
+        }
+      }
+  }
+}
+
+or without using maps
+
+#include<bits/stdc++.h>
+using namespace std;
+
+vector<string> word;
+
+int main(){
+int t,n;
+cin>>t; // 1 <+ t <= 5
+int c = 1;
+while(t--) {
+    word.clear();
+    cin>>n; // 1<= n <= 1000
+    string input;
+    for(int i=0; i < n; ++i ) {
+        cin >> input;
+
+        string temp;
+        for(int j=input.size()-3; j < input.size(); ++j ) {
+            temp += input[j];
+        }
+        for(int j=0; j < input.size()-3 ; ++j){
+            temp += input[j];
+        }
+
+        word.push_back(temp);
+    }
+    cout <<"Case : " << c << "\n";
+    ++c;
+    sort(word.begin(), word.end());
+    word.push_back("#%$%$");
+    for(int i=0 ; i < n ; ++i) {
+        string temp;
+        input = word[i];
+
+        for(int j=3; j < input.size(); ++j ) {
+            temp += input[j];
+        }
+        for(int j=0; j < 3 ; ++j){
+            temp += input[j];
+        }
+        cout << temp<<" ";
+        //cerr << word[i].substr(0,3)<<"<- "<<word[i+1].substr(0,3)<<"\n";
+        if(word[i].substr(0,3) != word[i+1].substr(0,3) )
+            cout<<"\n";
+    }
+}
+
+return 0;
+}
