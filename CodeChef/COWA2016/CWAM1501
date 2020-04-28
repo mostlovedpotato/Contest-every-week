@@ -1,0 +1,90 @@
+Here in this problem we have to find the optimum height possible according to the given conditions given to us.
+So, in order to satisfy that condition we go on storing the minimum cost possible for each case.
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	long n,a[100000],c[100000],min=1000000000,i,j,max=0,mini=100000,pos=0,s=0;
+	cin>>n;
+	
+	for(i=0;i<n;i++)
+	{
+	    cin>>a[i];
+	    if(a[i]<min)
+	    {
+	        min=a[i];
+	    }
+	    if(a[i]>max)
+	    max=a[i];
+	}
+	for(i=0;i<n;i++)
+	{
+	    cin>>c[i];
+	}
+	for(i=min;i<=max;i++)
+	{s=0;
+	 for(j=0;j<n;j++)
+	 {
+	     s+=(int)abs(a[j]-i)*c[j];
+	 }
+	 if(mini>=s)
+	 {pos=i;
+	 mini=s;
+	 }
+	}
+	cout<<pos;
+	return 0;
+}
+
+
+
+or 
+
+
+
+
+#include<iostream>
+#include<bits/stdc++.h>
+#include<stdio.h>
+using namespace std;
+int main()
+{
+	long n,i;
+	scanf("%ld",&n);
+	long long a[n],b[n],c[n]={0};
+	for(i=0;i<n;i++)
+	{
+		scanf("%lld",&a[i]);
+	}
+ 	
+     for(i=0;i<n;i++)
+	{
+		scanf("%lld",&b[i]);
+	}
+	//for(i=0;i<n;i++)
+	//{if(max>a[i])
+	//max=a[i];
+	//}
+    for(i=0;i<n;i++)
+    {    for(int j=0;j<n;j++)
+    	{
+		c[i]+=(abs(a[i]-a[j]))*b[j];//
+    	
+	}
+    }    
+//for(i=0;i<n;i++)
+//{
+//	cout<<"C[i] is "<<c[i]<<endl;
+//	 }     
+     long long min1=c[0];
+     for(i=0;i<n;i++)
+     {
+     	if(c[i]<min1)
+        {
+		min1=a[i];
+        }
+	    }
+
+     cout<<min1<<endl;
+}
