@@ -1,0 +1,31 @@
+Here in this problem we have to who will if they go on multiplying till they reach the number given .
+
+#include<bits/stdc++.h>
+#define fast_io std::ios_base::sync_with_stdio(false);cin.tie(0);cout.tie(0)
+#define i64 long long
+#define mod 1000000007
+using namespace std;
+int main() {
+  fast_io;
+  i64 n;
+  while(cin>>n){
+  i64 num=9; int t2=1;
+  while(num<n){
+    if(t2){
+      num*=2;
+    }
+    else{
+      num*=9;
+    }
+    t2=!t2;
+  }
+  if(t2==1){
+    cout<<"Dex wins.";
+  }
+  else{
+    cout<<"Dos wins.";
+  }
+  cout<<"\n";
+  }
+  return 0;
+}
