@@ -1,0 +1,42 @@
+This problem is simple case of the traditional 
+
+*///////Josephus problem ////////////*
+For more exploaration for case when k=2 in the problem look 
+
+https://www.exploringbinary.com/powers-of-two-in-the-josephus-problem/
+
+The more or better version problem lol having starting the competiton from some person at position at p . then solution would be 
+
+#include<iostream>
+using namespace std;
+#define LL long long int
+LL rem(LL n)
+{
+	LL sum=0,mul=1;
+	while(mul<n)
+	{
+	if(mul==n)return 0;
+	else mul*=2;
+}
+return mul;
+}
+int main()
+{
+	int t;
+	cin>>t;
+	while(t--)
+	{
+		LL n,p,i,j;
+		cin>>n>>p;
+		i=rem(n);
+		j=(2*n-i+p)%n;
+		if(j==0)
+		cout<<n<<endl;
+		else
+	 cout<<j<<"\n";
+		}
+		return 0;
+	} 
+
+
+And the original problem can be solved simply by not going for modulus in this solution.
