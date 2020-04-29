@@ -1,0 +1,36 @@
+All you got to do is to reverse the numebers and then add the numbers and then again reverse the numbers you got.
+
+#include<iostream>
+
+using namespace std;
+
+int reverse1(int n)
+{
+    int reverse=0, rem;
+    while(n!=0)    
+    {    
+        rem=n%10;      
+        reverse=reverse*10+rem;    
+        n/=10;    
+    }
+  return reverse;
+}
+
+int main()
+{
+    int t;
+    cin>>t;
+ 
+    while(t--)
+    {
+        int x, y,rev1,rev2,sum,sumr;
+        cin>>x>>y;
+        rev1= reverse1(x);
+        rev2= reverse1(y);
+        sum=rev1+rev2;
+        sumr= reverse1(sum);
+        cout<<sumr<<endl;
+ 
+ 
+    }
+}
