@@ -1,0 +1,109 @@
+This problem is kinda same to dijstra algoritm problem.
+
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long int 
+#define sz(x) ((int) x.size())
+#define mp(x,y) make_pair(x,y)
+#define f first
+#define s second
+#define pb push_back
+#define P pair<ll,ll>
+#define w(x) ll x; cin>>x; while(x--)
+#define all(x) (x).begin(),(x).end()
+#define F(i,a,b) for(int i = (int)(a); i <= (int)(b); i++)
+#define RF(i,a,b) for(int i = (int)(a); i >= (int)(b); i--)
+const ll mod=1e9+7;
+ 
+void go() {
+    ios_base:: sync_with_stdio(false);
+    cin.tie(NULL); cout.tie(NULL);
+#ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+#endif
+}
+ 
+const ll N=1e3+2;
+ 
+ll arr[N][N];
+vector<ll> res;
+ll ans;
+ll n,m;
+ll x,y,tes;
+//bool vis[N][N];
+vector<ll> v;
+ll dp[1005][1005];
+ll sym[1005][1005];
+void init(){
+    for(ll i=0;i<=1000;i++){
+        for(ll j=0;j<=1000;j++){
+            sym[i][j]=0;
+            dp[i][j]=LLONG_MAX;
+        }
+    }
+}
+map<ll,ll> co;
+void bfs(ll x, ll y,ll cost){
+    queue<pair<pair<ll,ll> ,ll> > q;
+    q.push(make_pair(make_pair(x,y),cost));
+    dp[x][y]=arr[x][y];
+    while(!q.empty()){
+        pair<pair<ll,ll> ,ll> u=q.front();
+        ll a=u.first.first;
+        ll b=u.first.second;
+        ll c=u.second;
+        q.pop();
+        if(a-1>=0 && (dp[a-1][b]>c+arr[a-1][b]) ){
+            dp[a-1][b]=c+arr[a-1][b];
+            q.push(mp(mp(a-1,b),c+arr[a-1][b]));
+        }
+        if(a+1<n && (dp[a+1][b]>c+arr[a+1][b])){
+            dp[a+1][b]=c+arr[a+1][b];
+            q.push(mp(mp(a+1,b),c+arr[a+1][b]));
+        }
+        if(b-1>=0 && (dp[a][b-1]>c+arr[a][b-1])){
+            dp[a][b-1]=c+arr[a][b-1];
+            q.push(mp(mp(a,b-1),c+arr[a][b-1]));
+        }
+        if(b+1<m && (dp[a][b+1]>c+arr[a][b+1])){
+            dp[a][b+1]=c+arr[a][b+1];
+            q.push(mp(mp(a,b+1),c+arr[a][b+1]));
+        }
+ 
+    }
+    // for(ll i=0;i<n;i++)
+    // {
+    //     for(ll j=0;j<m;j++)
+    //     {
+    //         if(dp[i][j]!=LLONG_MAX)
+    //         v.pb(dp[i][j]) ; 
+    //     }
+    // }
+    // sort(v.begin(),v.end());
+}
+int main(){
+    go();
+    w(t){
+        //memset(vis,false,sizeof vis);
+        init();
+        cin>>n>>m;
+        F(i,0,n-1){
+            F(j,0,m-1){
+                cin>>arr[i][j];
+            }
+        }
+        
+        cin>>x>>y>>tes;
+        x--;y--;
+        bfs(0,0,arr[0][0]);
+        ans=dp[x][y];
+        if(ans<tes){
+            cout<<"YES\n";
+            cout<<tes-ans<<'\n';
+        }
+        else cout<<"NO\n";
+        res.clear();
+    }
+    return 0;
+}
