@@ -1,0 +1,91 @@
+Here in this question we have to print a spiral which moves one time clockwise and one time anti-clockwise.
+So, we first write for clockwise and then for anticlockwise and put them in constrains of variable or boolean. So, they keep on flipping value
+on each round.
+
+#include<iostream>
+#include<vector>
+
+using namespace std;
+
+vector<vector<int>> generateMatrix(int n) {
+        vector<vector<int>> answer (n, vector<int>(n,0));
+        int r1 = 0, r2 = answer.size() - 1;
+        int c1 = 0, c2 = n - 1;
+        int count = 0;
+        int temp =0;
+   
+        while(r1 <= r2 && c1 <= c2){
+            if(temp%2==0){
+                for(int i = c1; i < c2; i++){
+                    count++;
+                    answer[r1][i] = count;
+                }            
+                for(int i = r1; i <= r2; i++){   //top traversal
+                    count++;
+                    answer[i][r2] = count;
+                }
+
+                if(r1 < r2 && c1 < c2){
+                    for(int i = c2 - 1 ; i >= c1 ; i--){
+                        count++;
+                        answer[r2][i] = count;
+                    }
+                    for(int i = r2 - 1; i > r1; i--){
+                        count++;
+                        answer[i][c1] = count;
+                    }
+                }
+                r1++;
+                r2--;
+                c1++;
+                c2--;
+                temp++;
+
+            }
+        
+        else
+            {
+            
+                for(int i = r1; i < r2; i++){
+                    count++;
+                    answer[i][c1] = count;
+                }            
+                for(int i =c1; i <= c2; i++){   //top traversal
+                    count++;
+                    answer[r2][i] = count;
+                }
+
+                if(r1 < r2 && c1 < c2){
+                    for(int i = r2 - 1 ; i >= r1 ; i--){
+                        count++;
+                        answer[i][c2] = count;
+                    }
+                    for(int i = c2 - 1; i > c1; i--){
+                        count++;
+                        answer[r1][i] = count;
+                    }
+                }
+                r1++;
+                r2--;
+                c1++;
+                c2--;
+                temp++;
+
+            }
+        
+        }
+        
+            return answer;
+    }
+
+    int main()
+    {
+        int n;
+        cin>> n;
+
+        vector<vector<int>> p = generateMatrix(n);
+        for (int i = 0; i < p.size(); i++) { 
+        for (int j = 0; j < p[i].size(); j++) 
+            cout << p[i][j] << " "; 
+        cout << endl; }
+    }
